@@ -1,0 +1,5 @@
+[2021-11-23 19:57:03.972506] (info): listen on 12000
+[2021-11-23 19:57:03.972623] (info): Starting worker
+[2021-11-23 19:57:03.973369] (trace): register to 192.168.122.1:10000
+terminate called after throwing an instance of 'boost::wrapexcept<boost::system::system_error>'
+  what():  connect: Connection refused
