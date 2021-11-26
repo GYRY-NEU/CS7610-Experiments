@@ -1,0 +1,3 @@
+[console_scripts]
+simulation = Simulation.main:main
+
