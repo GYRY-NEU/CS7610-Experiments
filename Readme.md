@@ -3,7 +3,7 @@
 
 git clone `project-experimentation`
 
-cd ../`project-experimentation`
+cd `project-experimentation`
 python3 -m venv env
 source env/bin/activate
 pip install setuptools-rust

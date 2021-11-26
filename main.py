@@ -14,6 +14,8 @@ def simulate(pyFile):
         print("Exiting...")
         return
     
+
+
     os.system(f"MYKHOURYPASS={password} python3 {pyFile}")
 
 def main():

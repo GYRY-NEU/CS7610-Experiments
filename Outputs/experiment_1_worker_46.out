@@ -1,2 +1,4 @@
-terminate called after throwing an instance of 'boost::wrapexcept<boost::program_options::too_many_positional_options_error>'
-  what():  too many positional options have been specified on the command line
+[2021-11-26 15:01:15.021815] (info): listen on 12000
+[2021-11-26 15:01:15.021919] (info): Starting worker
+[2021-11-26 15:01:15.022700] (trace): register to 10.200.125.43:10000
+[2021-11-26 15:01:15.023822] (trace): register: {"port":12000}

@@ -1,3 +1,5 @@
-[2021-11-23 19:57:01.285791] (info): listen on 10000
-[2021-11-23 19:57:01.285914] (info): Starting coordinator
-[2021-11-23 19:57:01.287197] (error): bind: Address already in use
+[2021-11-26 15:01:13.042838] (info): listen on 10000
+[2021-11-26 15:01:13.042948] (info): Starting coordinator
+[2021-11-26 15:01:15.023860] (trace): async_accept
+[2021-11-26 15:01:15.024360] (trace): Put /register
+[2021-11-26 15:01:15.024580] (info): Registered executer: 10.200.125.46:12000
