@@ -1,5 +1,5 @@
 from multiprocessing import Process
-
+from fabric import Connection
 
 # rm -f pythonfunc.zip;
 # 7z a -tzip pythonfunc.zip *;
@@ -8,21 +8,22 @@ from multiprocessing import Process
 
 
 class Developer(Process):
-    def __init__(self,projectDir,c):
+    def __init__(self,projectDir,ip,connect_kwargs,developerList):
         super(Developer, self).__init__()
 
         self.projectDir = projectDir
-        self.c = c
+        self.connection = Connection(ip,connect_kwargs=connect_kwargs)
+
+        self.developerList =developerList
 
     
-    def run(self,developerList):
+    def run(self,):
         print("Setup Developer...")
-        for connection,developerList in zip(self.c,developerList):
-            self.task(connection)
+        self.task()
 
-    def task(self,connection):
-        with connection.cd(self.projectDir):
+    def task(self,):
+        with self.connection.cd(self.projectDir):
             command = "pwd"
-            result = connection.run(command, hide=True,)
+            result = self.connection.run(command, hide=True,)
             msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
             print(msg.format(result))
