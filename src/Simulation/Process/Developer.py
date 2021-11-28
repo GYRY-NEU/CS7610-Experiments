@@ -8,12 +8,12 @@ from fabric import Connection
 
 
 class Developer(Process):
-    def __init__(self,projectDir,ip,connect_kwargs,developerList):
+    def __init__(self,projectDir,expNum,ip,connect_kwargs,developerList):
         super(Developer, self).__init__()
 
         self.projectDir = projectDir
         self.connection = Connection(ip,connect_kwargs=connect_kwargs)
-
+        self.experimentNumber = expNum
         self.developerList =developerList
 
     

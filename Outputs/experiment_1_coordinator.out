@@ -1,8 +1,8 @@
-[2021-11-27 17:05:08.318153] (info): listen on 10000
-[2021-11-27 17:05:08.318342] (info): Starting coordinator
-[2021-11-27 17:05:10.294576] (trace): async_accept
-[2021-11-27 17:05:10.295207] (trace): Put /register
-[2021-11-27 17:05:10.295532] (info): Registered executer: 10.200.125.45:12000
-[2021-11-27 17:05:12.517500] (trace): async_accept
-[2021-11-27 17:05:12.517767] (trace): Put /register
-[2021-11-27 17:05:12.517900] (info): Registered executer: 10.200.125.42:12000
+[2021-11-27 20:21:44.980595] (info): listen on 10000
+[2021-11-27 20:21:44.980709] (info): Starting coordinator
+[2021-11-27 20:21:46.958889] (trace): async_accept
+[2021-11-27 20:21:46.959299] (trace): Put /register
+[2021-11-27 20:21:46.959534] (info): Registered executer: 10.200.125.45:12000
+[2021-11-27 20:21:48.957650] (trace): async_accept
+[2021-11-27 20:21:48.957969] (trace): Put /register
+[2021-11-27 20:21:48.958123] (info): Registered executer: 10.200.125.42:12000
