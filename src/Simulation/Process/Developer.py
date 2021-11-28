@@ -1,6 +1,6 @@
 from multiprocessing import Process
 from Simulation.Process.Commons import developerUploadCommand,coordinatorPORT,developerInitCommand
-
+import time
 from fabric import Connection
 
 # rm -f pythonfunc.zip;
@@ -22,18 +22,20 @@ class Developer(Process):
         self.developerFileDir = os.path.join("src","Simulation",f"developer_{self.developerType}")
         self.developerDir = os.path.join(projectDir,"TempDeveloper",f"TempDeveloper_{self.processId}")
         self.hostIP = hostIP
+        
 
 
     
     def run(self,):
 
-        print("Setup Developer...")
-        self.setup()
+        
+
 
         print("Run Developer")
         self.task()
 
     def setup(self):
+        print("Setup Developer...")
         def createStorage():
         
             print("Clean Previous Developer File")
@@ -55,11 +57,33 @@ class Developer(Process):
         copyClientFile()
         zipClientFolder()
 
-    def task(self,):
+
+
         with self.connection.cd(self.developerDir):
-            command = developerUploadCommand.format(ip=self.hostIP,port=coordinatorPORT)
+            command = developerUploadCommand.format(ip=self.hostIP,port=coordinatorPORT,experimentNum=self.experimentNumber,workerId = self.processId)
             print(command)
-            self.connection.run(command, hide=True,pty=False)
-            # msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
+            result = self.connection.run(command, hide=True)
+            msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
             # print(msg.format(result))
-            command = developerInitCommand
+            self.functionId = result.stdout[result.stdout.find("=> ")+3:].strip()
+            
+            print(self.functionId)
+
+            return self.functionId
+
+    def task(self,):
+            with self.connection.cd(self.developerDir):
+                command = developerInitCommand.format(ip=self.hostIP,port=coordinatorPORT,functionId = self.functionId,experimentNum=self.experimentNumber,workerId = self.processId)
+                print(command)
+                result = self.connection.run(command, hide=True)
+                msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
+                print(msg.format(result))
+                # self.functionId = result.stdout[result.stdout.find("=> ")+3:].strip()
+                
+                # print(self.functionId)
+
+                
+
+        # while True:
+        #     print("Alive ...")
+        #     time.sleep(2)

@@ -1,10 +1,19 @@
-[2021-11-27 20:42:09.554025] (info): listen on 10000
-[2021-11-27 20:42:09.554169] (info): Starting coordinator
-[2021-11-27 20:42:11.527220] (trace): async_accept
-[2021-11-27 20:42:11.527732] (trace): Put /register
-[2021-11-27 20:42:11.528013] (info): Registered executer: 10.200.125.45:12000
-[2021-11-27 20:42:13.563496] (trace): async_accept
-[2021-11-27 20:42:13.563861] (trace): Get /function
-[2021-11-27 20:42:13.679665] (trace): async_accept
-[2021-11-27 20:42:13.679960] (trace): Put /register
-[2021-11-27 20:42:13.680139] (info): Registered executer: 10.200.125.42:12000
+[2021-11-28 16:26:16.918678] (info): listen on 10000
+[2021-11-28 16:26:16.918782] (info): Starting coordinator
+[2021-11-28 16:26:18.891104] (trace): async_accept
+[2021-11-28 16:26:18.891518] (trace): Put /register
+[2021-11-28 16:26:18.891754] (info): Registered executer: 10.200.125.45:12000
+[2021-11-28 16:26:20.883625] (trace): async_accept
+[2021-11-28 16:26:20.883940] (trace): Put /register
+[2021-11-28 16:26:20.884089] (info): Registered executer: 10.200.125.42:12000
+[2021-11-28 16:26:20.909886] (trace): async_accept
+[2021-11-28 16:26:20.910104] (trace): Get /function
+[2021-11-28 16:26:32.610796] (trace): async_accept
+[2021-11-28 16:26:32.611026] (trace): Get /getRound
+[2021-11-28 16:26:32.611112] (trace): converted base64: null
+[2021-11-28 16:26:32.611178] (trace): backstream.async_connect
+[2021-11-28 16:26:32.611709] (trace): backstream.async_write
+[2021-11-28 16:26:32.611990] (trace): backstream.async_read
+[2021-11-28 16:26:32.613792] (trace): async_accept
+[2021-11-28 16:26:32.614083] (trace): Get /function
+[2021-11-28 16:26:32.614121] (info): sending function zip: 1cb9e36d-db3e-440b-89a6-ff07565257a9

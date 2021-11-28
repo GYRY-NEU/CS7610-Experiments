@@ -1,4 +1,3 @@
-from numpy.lib.shape_base import dsplit
 import requests
 import random
 import sys
