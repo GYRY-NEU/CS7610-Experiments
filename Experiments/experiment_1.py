@@ -51,10 +51,10 @@ def createDeveloperFile(developerId,developerFolder):
 try:
 
     coordinator = Coordinator(projectDir,expNum,"vdi-linux-043.ccs.neu.edu",connect_kwargs)
-    developer = Developer(projectDir,expNum,"vdi-linux-046.ccs.neu.edu",connect_kwargs,[1])
+    developer = Developer(projectDir,expNum,"vdi-linux-046.ccs.neu.edu",connect_kwargs,1,ipTable["vdi-linux-043.ccs.neu.edu"])
     worker  = Worker(projectDir,expNum,"vdi-linux-045.ccs.neu.edu",connect_kwargs,ipTable["vdi-linux-043.ccs.neu.edu"])
     worker2  = Worker(projectDir,expNum,"vdi-linux-042.ccs.neu.edu",connect_kwargs,ipTable["vdi-linux-043.ccs.neu.edu"])
-    client  = Client(projectDir,expNum,"vdi-linux-047.ccs.neu.edu",connect_kwargs)
+    client  = Client(projectDir,expNum,"vdi-linux-047.ccs.neu.edu",connect_kwargs,ipTable["vdi-linux-043.ccs.neu.edu"])
     coordinator.start()
     time.sleep(2)
     worker.start()

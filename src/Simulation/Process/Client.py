@@ -4,7 +4,7 @@ import os
 import shutil
 
 class Client(Process):
-    def __init__(self,projectDir,expNum,ip,connect_kwargs):
+    def __init__(self,projectDir,expNum,ip,connect_kwargs,hostIP):
         super(Client, self).__init__()
         self.projectDir = projectDir
         self.clientDir = os.path.join(self.projectDir, "TempClient")
@@ -12,8 +12,9 @@ class Client(Process):
         self.experimentNumber = expNum
         self.connection = Connection(ip,connect_kwargs=connect_kwargs)
         self.processId = ip[ip.find("linux-",2)+6:ip.find(".")]
+        self.hostIP = hostIP
 
-        pass
+        
     def run(self):
 
         print("Setup Client ...")  
@@ -34,15 +35,12 @@ class Client(Process):
         
         def copyClientFile():
             
-            shutil.copytree(src=self.clientFileDir,dst=f"TempClient/TempClient_{self.processId}/pyFiles")
+            shutil.copytree(src=self.clientFileDir,dst=f"TempClient/TempClient_{self.processId}/client")
 
-        def zipClientFolder():
-            shutil.make_archive(f"TempClient/TempClient_{self.processId}/pythonfunc", 'zip', f"TempClient/TempClient_{self.processId}/pyFiles")
-
+       
 
         createStorage()
         copyClientFile()
-        zipClientFolder()
 
 
     def task(self):
