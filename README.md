@@ -1,5 +1,6 @@
 # Getting Started
 ```bash
+pip3 install requests --user
 python3 -m venv env
 source env/bin/activate
 pip install setuptools-rust

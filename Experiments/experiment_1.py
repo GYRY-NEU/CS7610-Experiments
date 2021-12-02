@@ -1,5 +1,6 @@
 import os
 from fabric import SerialGroup as Group
+from fabric.exceptions import  GroupException
 from os import getenv
 import shutil
 
@@ -59,18 +60,20 @@ try:
     worker.start()
     time.sleep(2)
     worker2.start()
-    functionId = developer.setup()
-    client  = Client(projectDir,expNum,"vdi-linux-047.ccs.neu.edu",connect_kwargs,ipTable["vdi-linux-043.ccs.neu.edu"],functionId)
-    developer.start()
-    time.sleep(10)
-    client.start()
     time.sleep(2)
+    functionId = developer.setup()
+    time.sleep(2)
+    # client  = Client(projectDir,expNum,"vdi-linux-047.ccs.neu.edu",connect_kwargs,ipTable["vdi-linux-043.ccs.neu.edu"],functionId)
+    # developer.start()
+    # time.sleep(2)
+    # # client.start()
+    # time.sleep(2)
 
     print("Ctrl/Cmd + C to terminate ...")
     coordinator.join()
-    developer.join()
+    # developer.join()
     worker.join()
-    client.join()
+    # client.join()
     worker2.join()
     print("Clean up...")
     task_clean(group_all)
@@ -80,15 +83,20 @@ except KeyboardInterrupt:
         print("Clean up...")
         worker.terminate()
         worker2.terminate()
-        developer.terminate()
+        # developer.terminate()
         coordinator.terminate()
-        client.terminate()
-        
-        task_clean(group_all)
+        # client.terminate()
         try:
-            sys.exit(0)
-        except SystemExit:
-            os._exit(0)
+            task_clean(group_all)
+        except GroupException:
+            print('Cleaned Successfully')
+            
+            try:
+                sys.exit(0)
+            except SystemExit:
+                os._exit(0)
+
+
 
 
 

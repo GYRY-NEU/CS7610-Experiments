@@ -1,5 +1,5 @@
-from multiprocessing import Process
-from Simulation.Process.Commons import developerUploadCommand,coordinatorPORT,developerInitCommand
+from multiprocessing import Process, process
+from Simulation.Process.Commons import developerUploadCommand,coordinatorPORT,developerInitCommand,developerCheckRoundCommand,developerCheckModelCommand
 import time
 from fabric import Connection
 
@@ -15,6 +15,8 @@ class Developer(Process):
         super(Developer, self).__init__()
 
         self.projectDir = projectDir
+        self.ip = ip 
+        self.connect_kwargs = connect_kwargs
         self.connection = Connection(ip,connect_kwargs=connect_kwargs)
         self.experimentNumber = expNum
         self.developerType =developerType
@@ -25,7 +27,6 @@ class Developer(Process):
         
 
 
-    
     def run(self,):
 
         
@@ -33,6 +34,13 @@ class Developer(Process):
 
         print("Run Developer")
         self.task()
+        time.sleep(2)
+
+        print('Run Check')
+        self.check()
+
+    def reconnect(self):
+        self.connection = Connection(self.ip,connect_kwargs=self.connect_kwargs)
 
     def setup(self):
         print("Setup Developer...")
@@ -60,6 +68,7 @@ class Developer(Process):
 
 
         with self.connection.cd(self.developerDir):
+            self.reconnect()
             command = developerUploadCommand.format(ip=self.hostIP,port=coordinatorPORT,experimentNum=self.experimentNumber,workerId = self.processId)
             print(command)
             result = self.connection.run(command, hide=True)
@@ -72,8 +81,11 @@ class Developer(Process):
             return self.functionId
 
     def task(self,):
+            self.reconnect()
             with self.connection.cd(self.developerDir):
                 command = developerInitCommand.format(ip=self.hostIP,port=coordinatorPORT,functionId = self.functionId,experimentNum=self.experimentNumber,workerId = self.processId)
+                # command = 'pwd'
+
                 print(command)
                 result = self.connection.run(command, hide=True)
                 msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
@@ -82,8 +94,29 @@ class Developer(Process):
                 
                 # print(self.functionId)
 
-                
+    def check(self,):
+        def checkRound():
 
-        # while True:
-        #     print("Alive ...")
-        #     time.sleep(2)
+            self.reconnect()
+
+            with self.connection.cd(self.developerDir):
+                command = developerCheckRoundCommand.format(ip=self.hostIP,port=coordinatorPORT,functionId = self.functionId,experimentNum=self.experimentNumber,workerId = self.processId)
+                # command = 'pwd'
+                print(command)
+                result = self.connection.run(command, hide=True)
+                msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
+                print(msg.format(result))
+                # self.functionId = result.stdout[result.stdout.find("=> ")+3:].strip()
+        def checkModel():
+            self.reconnect()
+
+            with self.connection.cd(self.developerDir):
+                command = developerCheckModelCommand.format(ip=self.hostIP,port=coordinatorPORT,functionId = self.functionId,experimentNum=self.experimentNumber,workerId = self.processId)
+                print(command)
+                result = self.connection.run(command,hide=True )
+                msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
+                print(msg.format(result))
+                # self.functionId = result.stdout[result.stdout.find("=> ")+3:].strip()
+                # print(self.functionId)
+        checkRound()
+        checkModel
