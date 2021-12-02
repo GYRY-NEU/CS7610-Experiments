@@ -21,7 +21,6 @@ connect_kwargs = {
 
 
 # print(ipTable)
-group_all          = Group("vdi-linux-047.ccs.neu.edu","vdi-linux-046.ccs.neu.edu","vdi-linux-045.ccs.neu.edu","vdi-linux-043.ccs.neu.edu",connect_kwargs=connect_kwargs)
 
 expNum = 1
 projectDir ="Simulation"
@@ -51,40 +50,95 @@ def createDeveloperFile(developerId,developerFolder):
 
 try:
 
-    coordinator = Coordinator(projectDir,expNum,"vdi-linux-043.ccs.neu.edu",connect_kwargs)
-    developer = Developer(projectDir,expNum,"vdi-linux-046.ccs.neu.edu",connect_kwargs,1,ipTable["vdi-linux-043.ccs.neu.edu"])
-    worker  = Worker(projectDir,expNum,"vdi-linux-045.ccs.neu.edu",connect_kwargs,ipTable["vdi-linux-043.ccs.neu.edu"])
-    worker2  = Worker(projectDir,expNum,"vdi-linux-042.ccs.neu.edu",connect_kwargs,ipTable["vdi-linux-043.ccs.neu.edu"])
+    threads = []
+    vdiUrl ="vdi-linux-0{id}.ccs.neu.edu"
+    currentID=42
+    coordinatorIp = vdiUrl.format(id=41)
+    developerCount=2
+    workerCount =2
+    clientCount=2
+
+    #Setup Coordinator
+
+    coordinator = Coordinator(projectDir,expNum,coordinatorIp,connect_kwargs)
     coordinator.start()
     time.sleep(2)
-    worker.start()
-    time.sleep(2)
-    worker2.start()
-    time.sleep(2)
-    functionId = developer.setup()
-    time.sleep(2)
-    client  = Client(projectDir,expNum,"vdi-linux-047.ccs.neu.edu",connect_kwargs,ipTable["vdi-linux-043.ccs.neu.edu"],functionId)
-    developer.start()
-    time.sleep(2)
-    client.start()
-    time.sleep(2)
+
+
+
+
+
+    # Start Workers
+    #______________________________________________________________________________________________________________________________
+    workers = []
+    for workerNum in range(workerCount):
+        workerIp = vdiUrl.format(id=currentID)
+        currentID +=1
+        workers.append(Worker(projectDir,expNum,workerIp,connect_kwargs,ipTable[coordinatorIp]))
+
+    for worker in workers:
+        worker.start()
+        time.sleep(1)
+
+
+    # Setup Developers
+    #______________________________________________________________________________________________________________________________
+    developers = []
+    developerFuncID={}
+    for developerNum in range(developerCount):
+        developerIp = vdiUrl.format(id=currentID)
+        currentID +=1
+        developers.append(Developer(projectDir,expNum,developerIp,connect_kwargs,developerNum,ipTable[coordinatorIp]))
+
+    for developerID,developer in enumerate(developers):
+        funcID =developer.setup()
+        developerFuncID[developerID]= funcID
+        time.sleep(1)
+
+    for developer in developers:
+        developer.start()
+        time.sleep(1)
+    
+    # Developer Join
+    #______________________________________________________________________________________________________________________________
+    for developer in developers:
+        developer.join()
+    # Star Clients
+    #______________________________________________________________________________________________________________________________
+    clients = []
+    for clientNum in range(clientCount):
+        clientIp = vdiUrl.format(id=currentID)
+        currentID +=1
+        clients.append(Client(projectDir,expNum,clientIp,connect_kwargs,ipTable[coordinatorIp],developerFuncID[clientNum % developerCount]))
+
+    for client in clients:
+        client.start()
 
     print("Ctrl/Cmd + C to terminate ...")
-    coordinator.join()
-    developer.join()
-    worker.join()
-    client.join()
-    worker2.join()
+
+
+    print('Joined here')
+
+    
+    # Client Join
+    #______________________________________________________________________________________________________________________________
+    for client in clients:
+        client.join()
+    
     print("Clean up...")
-    task_clean(group_all)
+    try:
+        host = [vdiUrl.format(id=i) for i in range(41,currentID)]
+        group_all= Group(*host,connect_kwargs=connect_kwargs)
+
+        task_clean(group_all)
+    except GroupException:
+        print('Cleaned Successfully')
+
 
 except KeyboardInterrupt:
         print('Interrupted')
         print("Clean up...")
-        worker.terminate()
-        worker2.terminate()
         # developer.terminate()
-        coordinator.terminate()
         # client.terminate()
         try:
             task_clean(group_all)

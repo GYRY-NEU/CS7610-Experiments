@@ -3,7 +3,7 @@ from multiprocessing import Process
 from fabric import Connection
 import os
 import shutil
-
+import time
 class Worker(Process):
     def __init__(self,projectDir,expNum,workerIp,connect_kwargs, hostIp):
         super(Worker, self).__init__()
@@ -20,7 +20,7 @@ class Worker(Process):
     def run(self):
         print("Setup Workers...")
         self.setup()
-
+        time.sleep(1)
         print("Run Worker")
         self.task()
         
