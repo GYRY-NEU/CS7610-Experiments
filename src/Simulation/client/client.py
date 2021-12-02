@@ -28,12 +28,14 @@ def main():
     fid = sys.argv[1]
     master = sys.argv[2]
     masterport = sys.argv[3]
-    ok = False
-    while not ok:
-        start = time.perf_counter()
-        ok = singleClient(fid, "http://{}:{}".format(master, masterport))
-        stop = time.perf_counter()
-        print(ok, stop - start)
+    
+    for i in range(5):
+        ok = False
+        while not ok:
+            start = time.perf_counter()
+            ok = singleClient(fid, "http://{}:{}".format(master, masterport))
+            stop = time.perf_counter()
+            print(ok, stop - start)
 
 if __name__ == "__main__":
     main()

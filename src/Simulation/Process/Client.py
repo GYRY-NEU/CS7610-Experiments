@@ -53,8 +53,8 @@ class Client(Process):
                 
                 command = clientCommand.format(ip=self.hostIP,port=coordinatorPORT,functionId =self.functionId,experimentNum=self.experimentNumber,workerId=self.processId)
                 print(command)
-                result = self.connection.run(command, hide=True,pty=False)
-                msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
+                self.connection.run(command, hide=True,pty=False)
+                #msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
 
-                print(msg.format(result))
+                # print(msg.format(result))
 

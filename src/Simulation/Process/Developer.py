@@ -66,14 +66,16 @@ class Developer(Process):
         zipClientFolder()
 
 
-
+        print(self.developerDir)
+        self.reconnect()
         with self.connection.cd(self.developerDir):
-            self.reconnect()
+            print('Entered')
             command = developerUploadCommand.format(ip=self.hostIP,port=coordinatorPORT,experimentNum=self.experimentNumber,workerId = self.processId)
-            print(command)
+            # command = 'pwd'
+            # print(command)
             result = self.connection.run(command, hide=True)
             msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
-            # print(msg.format(result))
+            print(msg.format(result))
             self.functionId = result.stdout[result.stdout.find("=> ")+3:].strip()
             
             print(self.functionId)
@@ -102,7 +104,7 @@ class Developer(Process):
             with self.connection.cd(self.developerDir):
                 command = developerCheckRoundCommand.format(ip=self.hostIP,port=coordinatorPORT,functionId = self.functionId,experimentNum=self.experimentNumber,workerId = self.processId)
                 # command = 'pwd'
-                print(command)
+                # print(command)
                 result = self.connection.run(command, hide=True)
                 msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
                 print(msg.format(result))
@@ -119,4 +121,4 @@ class Developer(Process):
                 # self.functionId = result.stdout[result.stdout.find("=> ")+3:].strip()
                 # print(self.functionId)
         checkRound()
-        checkModel
+        checkModel()
