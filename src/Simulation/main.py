@@ -4,7 +4,7 @@ import sys
 
 
 
-def simulate(pyFile):
+def simulate(pyFile,numWorker,numDeveloper,numClients,numRequestPerClient,numThreadPerClient):
     # get credential
     try:
         password = os.environ["MYKHOURYPASS"]
@@ -16,22 +16,34 @@ def simulate(pyFile):
     
 
 
-    os.system(f"MYKHOURYPASS={password} python3 {pyFile}")
+    os.system(f"MYKHOURYPASS={password} python3 {pyFile} {numWorker} {numDeveloper} {numClients} {numRequestPerClient} {numThreadPerClient} ")
 
 def main():
  
-    if len(sys.argv) != 2:
+    if len(sys.argv) != 6:
         print("Format is like below:...")
-        print("python main EXP_NUM")
+        print("python main numWorker numDeveloper numClients numRequestPerClient numThreadPerClient")
         print("Exiting...")
         return
     
-    experimentNumber = sys.argv[1]
-    experimentFile = os.path.join("Experiments",f"experiment_{experimentNumber}.py")
-    if not os.path.exists(experimentFile):
-        print(f"Experiment file does not exist : {experimentFile}")
-        return
+    numWorker = sys.argv[1]
+    numDeveloper = sys.argv[2]
+    numClients = sys.argv[3]
+    numRequestPerClient = sys.argv[4]
+    numThreadPerClient = sys.argv[5]
 
-    simulate(experimentFile)
+    print('numWorker',numWorker)
+    print('numDeveloper',numDeveloper)
+    print('numClients',numClients)
+    print('numRequestPerClient',numRequestPerClient)
+    print('numThreadPerClient',numThreadPerClient)
+    print('-'*40)
+    
+    experimentFile = os.path.join("Experiments",f"experiment_1.py")
+
+
+
+
+    simulate(experimentFile,numWorker,numDeveloper,numClients,numRequestPerClient,numThreadPerClient)
 if __name__ == "__main__":
     main()

@@ -1,7 +1,19 @@
-[2021-12-02 18:16:54.897844] (info): listen on 10000
-[2021-12-02 18:16:54.897905] (info): Starting coordinator in "/home/yarg/Simulation/TempCoordinator"
-[2021-12-02 18:16:57.893316] (info): Registered executer: 10.200.125.42:12000
-[2021-12-02 18:16:58.872126] (info): Registered executer: 10.200.125.43:12000
-[2021-12-02 18:17:03.736725] (info): sending function zip: c88fcb71-5095-4e57-a835-5b46a079f130
-[2021-12-02 18:17:04.717142] (info): sending function zip: 565fc0ac-9f19-4d23-bb80-9dc02d16b7dd
-[2021-12-02 18:17:08.847443] (info): sending function zip: 565fc0ac-9f19-4d23-bb80-9dc02d16b7dd
+[2021-12-03 11:39:44.555637] (info): listen on 10000
+[2021-12-03 11:39:44.555689] (info): Starting coordinator in "/home/yarg/Simulation/TempCoordinator"
+[2021-12-03 11:39:47.556178] (info): Registered executer: 10.200.125.42:12000
+[2021-12-03 11:39:49.105110] (info): Registered executer: 10.200.125.43:12000
+[2021-12-03 11:39:49.613519] (info): Registered executer: 10.200.125.44:12000
+[2021-12-03 11:39:51.113807] (info): Registered executer: 10.200.125.45:12000
+[2021-12-03 11:39:56.404823] (info): sending function zip: 1b0a66fb-0e8d-44a4-a53b-53e0b7392a7f
+[2021-12-03 11:39:57.409806] (info): sending function zip: d455f0e4-6dc2-42c8-8f42-cba844f19d87
+[2021-12-03 11:40:01.504619] (info): sending function zip: d455f0e4-6dc2-42c8-8f42-cba844f19d87
+[2021-12-03 11:40:01.506390] (info): sending function zip: d455f0e4-6dc2-42c8-8f42-cba844f19d87
+[2021-12-03 11:40:01.506693] (info): sending function zip: d455f0e4-6dc2-42c8-8f42-cba844f19d87
+[2021-12-03 11:40:01.506781] (info): sending function zip: 1b0a66fb-0e8d-44a4-a53b-53e0b7392a7f
+[2021-12-03 11:40:01.507198] (info): sending function zip: d455f0e4-6dc2-42c8-8f42-cba844f19d87
+[2021-12-03 11:40:01.507292] (info): sending function zip: 1b0a66fb-0e8d-44a4-a53b-53e0b7392a7f
+[2021-12-03 11:40:01.507810] (info): sending function zip: d455f0e4-6dc2-42c8-8f42-cba844f19d87
+[2021-12-03 11:40:01.508345] (info): sending function zip: 1b0a66fb-0e8d-44a4-a53b-53e0b7392a7f
+[2021-12-03 11:40:01.508455] (info): sending function zip: d455f0e4-6dc2-42c8-8f42-cba844f19d87
+[2021-12-03 11:40:01.508714] (info): sending function zip: 1b0a66fb-0e8d-44a4-a53b-53e0b7392a7f
+[2021-12-03 11:40:01.508937] (info): sending function zip: 1b0a66fb-0e8d-44a4-a53b-53e0b7392a7f

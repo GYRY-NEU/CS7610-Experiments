@@ -49,14 +49,30 @@ def createDeveloperFile(developerId,developerFolder):
 
 
 try:
+    vdiUrl ="vdi-linux-0{id}.ccs.neu.edu"
 
     threads = []
-    vdiUrl ="vdi-linux-0{id}.ccs.neu.edu"
     currentID=42
     coordinatorIp = vdiUrl.format(id=41)
-    developerCount=2
-    workerCount =2
-    clientCount=2
+    workerCount = int(sys.argv[1])
+    developerCount=int(sys.argv[2])
+    clientCount=int(sys.argv[3])
+    requestPerClient = int(sys.argv[4])
+    threadCount = int(sys.argv[5])
+    total = 1 + workerCount + developerCount + clientCount + requestPerClient
+
+    print("Clean up before start...")
+    try:
+        host = [vdiUrl.format(id=i) for i in range(41,41+total)]
+        group_all= Group(*host,connect_kwargs=connect_kwargs)
+
+        task_clean(group_all)
+    except GroupException:
+        print('Cleaned Successfully')
+
+    time.sleep(3)
+
+
 
     #Setup Coordinator
 
@@ -109,7 +125,7 @@ try:
     for clientNum in range(clientCount):
         clientIp = vdiUrl.format(id=currentID)
         currentID +=1
-        clients.append(Client(projectDir,expNum,clientIp,connect_kwargs,ipTable[coordinatorIp],developerFuncID[clientNum % developerCount]))
+        clients.append(Client(projectDir,expNum,clientIp,connect_kwargs,ipTable[coordinatorIp],developerFuncID[clientNum % developerCount],requestPerClient,threadCount))
 
     for client in clients:
         client.start()

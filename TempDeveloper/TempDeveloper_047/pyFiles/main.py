@@ -3,10 +3,10 @@ import json
 
 @library.export
 def init(args):
-    model = [[9.2, 0.21, 0.21],
-             [8.2, 0.22, 0.21],
-             [7.2, 1.21, 2.41],
-             [1.2, 2.21, 1.29]]
+    model = [[2.2, 1.21, 1.21],
+             [3.2, 2.22, 1.21],
+             [0.2, 2.21, 2.21],
+             [2.2, 4.21, 1.21]]
     library.put("model", model)
     ROUND = 0
     library.put("ROUND", ROUND)

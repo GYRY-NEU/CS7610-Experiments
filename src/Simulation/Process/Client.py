@@ -5,7 +5,7 @@ import shutil
 from Simulation.Process.Commons import clientCommand,coordinatorPORT
 
 class Client(Process):
-    def __init__(self,projectDir,expNum,ip,connect_kwargs,hostIP,functionId):
+    def __init__(self,projectDir,expNum,ip,connect_kwargs,hostIP,functionId,numRequest,numThread):
         super(Client, self).__init__()
         self.projectDir = projectDir
         self.clientFileDir = os.path.join("src","Simulation","client")
@@ -17,6 +17,8 @@ class Client(Process):
         self.hostIP = hostIP
         self.functionId = functionId
         self.environmentPath = "source ~/env/bin/activate"
+        self.numRequest = numRequest
+        self.numThread = numThread
         
     def run(self):
 
@@ -51,7 +53,7 @@ class Client(Process):
             with self.connection.prefix(self.environmentPath): 
             
                 
-                command = clientCommand.format(ip=self.hostIP,port=coordinatorPORT,functionId =self.functionId,experimentNum=self.experimentNumber,workerId=self.processId)
+                command = clientCommand.format(ip=self.hostIP,port=coordinatorPORT,functionId =self.functionId,experimentNum=self.experimentNumber,workerId=self.processId, numRequest=self.numRequest, numThread=self.numThread)
                 print(command)
                 self.connection.run(command, hide=True,pty=False)
                 #msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"

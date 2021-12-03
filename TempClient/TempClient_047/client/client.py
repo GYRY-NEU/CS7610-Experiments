@@ -29,7 +29,7 @@ def main():
     master = sys.argv[2]
     masterport = sys.argv[3]
     
-    for i in range(5):
+    for i in range(30):
         ok = False
         while not ok:
             start = time.perf_counter()
