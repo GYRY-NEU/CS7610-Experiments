@@ -25,7 +25,7 @@ def clientUpload(args):
     library.put_bucket(k, client["model"])
 
     # if enough models
-    if library.count_bucket(k) > 20:
+    if library.count_bucket(k) > 100:
         ROUND = library.get("ROUND")
 
         # check client rounds == current rounds
@@ -56,7 +56,7 @@ def updateModel(model, list_weights):
     # or one can discard smallest and largest than take average
     # this example just takes avg without use of external library
 
-    alpha = library.get("alpha")
+    alpha = 0.2
 
     # getting shape of 3D array
     number_clients = len(list_weights)

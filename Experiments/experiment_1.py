@@ -39,6 +39,20 @@ def task_clean(c):
     msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
     print(msg.format(result))
 
+def folder_clean(tempDeveloperBase,tempClientBase,tempWorkerBase,tempCoordinatorBase):
+    def clean_single(path):
+         
+        if os.path.exists(path):
+            shutil.rmtree(path)
+            
+        os.mkdir(path)
+    clean_single(tempDeveloperBase)
+    clean_single(tempClientBase)
+    clean_single(tempWorkerBase)
+    clean_single(tempCoordinatorBase)
+
+
+
 def createDeveloperFile(developerId,developerFolder):
     tempFolder = os.path.join(tempDeveloperBase,f"temp_{developerId}")
 
@@ -61,16 +75,23 @@ try:
     threadCount = int(sys.argv[5])
     total = 1 + workerCount + developerCount + clientCount + requestPerClient
 
-    print("Clean up before start...")
+    print("Clean up ssh before start...")
     try:
+        
         host = [vdiUrl.format(id=i) for i in range(41,41+total)]
         group_all= Group(*host,connect_kwargs=connect_kwargs)
 
         task_clean(group_all)
     except GroupException:
-        print('Cleaned Successfully')
+        print('Cleaned ssh Successfully')
+        print("Clean up ssh before start...")
+    
 
     time.sleep(3)
+    # print('clean folders')
+    # folder_clean(tempDeveloperBase,tempClientBase,tempWorkerBase,tempCoordinatorBase)
+    # assert False
+    # time.sleep(3)
 
 
 
