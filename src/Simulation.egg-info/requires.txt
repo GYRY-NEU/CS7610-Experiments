@@ -1,1 +1,5 @@
 fabric
+parse
+numpy
+pandas
+matplotlib

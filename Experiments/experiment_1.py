@@ -13,7 +13,6 @@ from Simulation.Process.Coordinator import Coordinator
 import sys
 from Simulation.Process.AddressTable import ipTable
 
-print("Experiment 1 Starts...")
 
 connect_kwargs = {
     'password': getenv('MYKHOURYPASS')
@@ -22,12 +21,15 @@ connect_kwargs = {
 
 # print(ipTable)
 
-expNum = 1
+expNum = int(sys.argv[6])
 projectDir ="Simulation"
 tempDeveloperBase = os.path.join(projectDir,"TempDeveloper")
 tempClientBase = os.path.join(projectDir,"TempClient")
 tempWorkerBase = os.path.join(projectDir,"TempWorker")
 tempCoordinatorBase = os.path.join(projectDir,"TempCoordinator")
+outputDir = os.path.join("Outputs",f'experiment_{expNum}')
+print('-'*100)
+print(f"Experiment {expNum} Starts...")
 
 
 
@@ -39,17 +41,31 @@ def task_clean(c):
     msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"
     print(msg.format(result))
 
-def folder_clean(tempDeveloperBase,tempClientBase,tempWorkerBase,tempCoordinatorBase):
+def folder_clean(tempDeveloperBase,tempClientBase,tempWorkerBase,tempCoordinatorBase,outputDir):
     def clean_single(path):
-         
+        path = os.path.basename(path)
         if os.path.exists(path):
+            # print(f'exists {path}')
             shutil.rmtree(path)
             
         os.mkdir(path)
+    def clean_output(dir):
+        if os.path.exists(dir):
+            shutil.rmtree(dir)
+        os.mkdir(dir)
+        os.mkdir(os.path.join(dir,'client'))
+        os.mkdir(os.path.join(dir,'worker'))
+        os.mkdir(os.path.join(dir,'coordinator'))
+
+        
+    
     clean_single(tempDeveloperBase)
     clean_single(tempClientBase)
     clean_single(tempWorkerBase)
     clean_single(tempCoordinatorBase)
+    clean_output(outputDir)
+
+
 
 
 
@@ -87,12 +103,9 @@ try:
         print("Clean up ssh before start...")
     
 
-    time.sleep(3)
-    # print('clean folders')
-    # folder_clean(tempDeveloperBase,tempClientBase,tempWorkerBase,tempCoordinatorBase)
-    # assert False
-    # time.sleep(3)
-
+    print('clean folders')
+    folder_clean(tempDeveloperBase,tempClientBase,tempWorkerBase,tempCoordinatorBase,outputDir)
+    time.sleep(10)
 
 
     #Setup Coordinator
@@ -151,12 +164,7 @@ try:
     for client in clients:
         client.start()
 
-    print("Ctrl/Cmd + C to terminate ...")
 
-
-    print('Joined here')
-
-    
     # Client Join
     #______________________________________________________________________________________________________________________________
     for client in clients:

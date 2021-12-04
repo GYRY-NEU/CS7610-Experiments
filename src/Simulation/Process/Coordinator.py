@@ -45,7 +45,7 @@ class Coordinator(Process):
 
 
         with self.connection.cd(self.coordinatorDir):
-            command = coordinatorStartCommand.format(port=coordinatorPORT,experimentNum=1)
+            command = coordinatorStartCommand.format(port=coordinatorPORT,experimentNum=self.experimentNum)
             print("Coordinator command: ",command)
             self.connection.run(command,hide=True,pty=False)
             # msg = "Ran {0.command!r} on {0.connection.host}, got stdout:\n{0.stdout}"

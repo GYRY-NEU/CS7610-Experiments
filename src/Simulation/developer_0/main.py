@@ -6,7 +6,7 @@ def init(args):
     model = [[9.2, 0.21, 0.21],
              [8.2, 0.22, 0.21],
              [7.2, 1.21, 2.41],
-             [1.2, 2.21, 1.29]]
+             [1.2, 2.21, 0.29]]
     library.put("model", model)
     ROUND = 0
     library.put("ROUND", ROUND)

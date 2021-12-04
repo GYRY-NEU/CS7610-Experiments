@@ -22,6 +22,10 @@ setuptools.setup(
     ],
     install_requires=[
         'fabric',
+        'parse',
+        'numpy',
+        'pandas',
+        'matplotlib'
     ],
     package_dir={"": "src"},
     packages=setuptools.find_packages(where="src"),

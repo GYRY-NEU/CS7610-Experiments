@@ -1,3 +1,7 @@
 env/
 Experiments/__pycache__/
 Outputs/
+TempClient
+TempCoordinator
+TempDeveloper
+TempWorker

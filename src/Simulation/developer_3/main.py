@@ -3,10 +3,10 @@ import json
 
 @library.export
 def init(args):
-    model = [[9.2, 0.21, 0.21],
-             [8.2, 0.22, 0.21],
-             [7.2, 1.21, 2.41],
-             [1.2, 2.21, 0.29]]
+    model = [[2.2, 1.21, 1.21],
+             [3.2, 2.22, 1.21],
+             [0.2, 2.21, 2.21],
+             [2.2, 4.21, 3.21]]
     library.put("model", model)
     ROUND = 0
     library.put("ROUND", ROUND)
@@ -25,7 +25,7 @@ def clientUpload(args):
     library.put_bucket(k, client["model"])
 
     # if enough models
-    if library.count_bucket(k) > 20:
+    if library.count_bucket(k) > 100:
         ROUND = library.get("ROUND")
 
         # check client rounds == current rounds
@@ -56,7 +56,7 @@ def updateModel(model, list_weights):
     # or one can discard smallest and largest than take average
     # this example just takes avg without use of external library
 
-    alpha = library.get("alpha")
+    alpha = 0.2
 
     # getting shape of 3D array
     number_clients = len(list_weights)
