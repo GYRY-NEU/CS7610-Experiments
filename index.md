@@ -94,7 +94,19 @@ pip install -e .
            |____experiment_xx.py                      #                              
            |____...                                   #                 
                                 
-```                                
+```  
+# Building the binary
+
+Make sure you have docker to build the binary. The compiled binary is static, so you can run it anywhere on linux machines. Or you can build the binary manually. Please see the instructions in the CS7610 README.
+
+```
+# Get serverless platform code
+# git clone https://github.com/GYRY-NEU/CS7610
+cd CS7610;
+make from-docker;
+cp run ../;
+```
+
 # Run a experiment                                
                                 
 ```bash
