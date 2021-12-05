@@ -97,6 +97,7 @@ pip install -e .
 ```  
 # Building the binary
 
+This repo already contains latest version of the compiled binary. If you want to compile from it from stratch, follow this section. 
 Make sure you have docker to build the binary. The compiled binary is static, so you can run it anywhere on linux machines. Or you can build the binary manually. Please see the instructions in the CS7610 README.
 
 ```
