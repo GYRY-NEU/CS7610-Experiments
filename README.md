@@ -128,3 +128,14 @@ simulation 'loadBalancer'  # created loadBalance figure
 
 ```
 
+# Results
+
+<div>
+  <img src="https://raw.githubusercontent.com/GYRY-NEU/Simulation/master/Figures/Worker%20Count%20Effect.png">
+  <img src="https://raw.githubusercontent.com/GYRY-NEU/Simulation/master/Figures/LoadBalancer.png">   
+  <img src="https://raw.githubusercontent.com/GYRY-NEU/Simulation/master/Figures/Client%20Count%20Effect.png">
+  <img src="https://raw.githubusercontent.com/GYRY-NEU/Simulation/master/Figures/Developer%20Count%20Effect.png">
+  <img src="https://raw.githubusercontent.com/GYRY-NEU/Simulation/master/Figures/Serial%20Req%20Count%20Effect.png">
+  <img src="https://raw.githubusercontent.com/GYRY-NEU/Simulation/master/Figures/Thread%20Count%20Effect.png">
+ </div>
+
