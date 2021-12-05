@@ -7,7 +7,46 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+def loadBalancer():
+    path =os.path.join('Outputs','experiment_3','coordinator','coordinator.out')
+    if not os.path.exists(path):
+        print('Please run experiment 3 first')
+        return
+    loadPerWorker = defaultdict(list)
+    with open(path,'r') as f:
+        for line in f:
+            last= line.strip().split()[-1]
+            if last[-2] != '/':
+                continue
+            node,perf = last.split('|')
+            load = int(perf.split('/')[0])
+            loadPerWorker[node].append(load)
+    minLength = float('inf')
+    for k,v in loadPerWorker.items():
+        print(k)
+        minLength =min(minLength,len(v))
+    loadPerWorker = {k : v[-1*minLength:] for k,v in loadPerWorker.items()}
 
+    fig, ax = plt.subplots( nrows=1, ncols=1 )  # create figure & 1 axis
+    counter = 0
+    colors= ['r','g','b']
+    X = np.arange(minLength,step=4)
+    for k,v in loadPerWorker.items():
+       
+        ax.plot(X,v[::4])
+        counter += 1
+
+
+
+
+    # plt.legend(['y = x', 'y = 2x', 'y = 3x', 'y = 4x'], loc='upper left')
+    ax.set(xlabel='Time',ylabel='Load')
+    fig.suptitle('Load Balancer')
+    fig.savefig(os.path.join('Figures','LoadBalancer'),bbox_inches='tight')   # save the figure to file
+
+    plt.close(fig,)  
+
+   
 def myPlot(df,xlabel,xlist,title,scale='log',base=2):
     fig, ax = plt.subplots( nrows=1, ncols=2 )  # create figure & 1 axis
     fig.suptitle(title)
@@ -276,6 +315,9 @@ def main():
         figure4()
         exp5()
         figure5()
+
+    elif len(sys.argv) == 2 and sys.argv[1] == 'loadBalancer':
+        loadBalancer()
     else:
         print("Format is like below:...")
         print("simulation numWorker numDeveloper numClients numRequestPerClient numThreadPerClient")
