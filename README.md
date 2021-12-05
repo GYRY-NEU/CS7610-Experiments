@@ -127,7 +127,18 @@ simulation 'all'           # runs all experiments
 simulation 'loadBalancer'  # created loadBalance figure
 
 ```
-
+# Protocol
+  - Coordinator runs at port:10000
+  - Workers register to coordinator and run at port:12000
+  - Developer uploads a zip file contains main and library to coordinator.
+  - Coordinator returns a function Id to developer
+  - Developers starts execution of the init http request
+  - Coordinator looks for available workers and transfers files specified with function Id
+  - Workers unzip files and wait for clients
+  - Clients run their client.py script
+  - Clients run script sequentially and multithreaded to simulate more requests.
+  - There is a parameter specified in the developer file that controls the batchSize. When a batch of request made worker runs the update model function. This    function reduces many client updates to a single new model.
+  - When clients no longer have any request program terminates, coordinator only terminates for demonstration purposes
 # Results
 
 <div>
